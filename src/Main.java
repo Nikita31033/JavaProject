@@ -1,5 +1,6 @@
 import Classes.InputArgs;
 import Classes.FileWorker;
+import Classes.Solutions;
 
 public class Main {
     public static void main(String[] args) {
@@ -11,10 +12,14 @@ public class Main {
         boolean[][] twoDimensionalArray
                 = new FileWorker(filesPath.GetInputFilePath(), filesPath.GetOutputFilePath()).getTwoDimensionalArray();
 
-        for (boolean[] rows : twoDimensionalArray) {
-            for (boolean element : rows) System.out.print(element + "\t");
+        for (boolean[] row : twoDimensionalArray) {
+            for (boolean element : row) System.out.print(element + "\t");
             System.out.println();
         }
+
+        Solutions solution = new Solutions();
+
+        System.out.println("Max area = " + solution.FindTheBiggestTrueRectangles(twoDimensionalArray));
     }
 
     public static InputArgs parseCmdArgs(String[] args) {
