@@ -4,16 +4,15 @@ import Classes.FileWorker;
 public class Main {
     public static void main(String[] args) {
 
-        InputArgs filesPath = null;
+        InputArgs filesPath;
 
         filesPath = parseCmdArgs(args);
 
-        boolean[][] TwoDimensionalArray
+        boolean[][] twoDimensionalArray
                 = new FileWorker(filesPath.GetInputFilePath(), filesPath.GetOutputFilePath()).getTwoDimensionalArray();
 
-        for (int i = 0; i < TwoDimensionalArray.length; i++) {
-            for (int k = 0; k < TwoDimensionalArray[i].length; k++)
-                System.out.print(TwoDimensionalArray[i][k] + "\t");
+        for (boolean[] rows : twoDimensionalArray) {
+            for (boolean element : rows) System.out.print(element + "\t");
             System.out.println();
         }
     }
@@ -24,37 +23,31 @@ public class Main {
         try {
             for (int i = 0; i < args.length; i++) {
                 switch (args[i].split("=")[0]) {
-                    case "-help":
-                        System.out.print(
-                                String.format("Страница 1 из 1 для {-help}:\n" +
-                                                "%-30s\t - Список аргументов.\n" +
-                                                "%-30s\t - Указать путь к файлу с входными данными.\n" +
-                                                "%-30s\t \n" +
-                                                "%-30s\t - Указать путь к файлу для записи данных.\n" +
-                                                "%-30s\t \n",
-                                        "{-help}", "{-i} [inputFilePath]", "{--input-file=[inputFilePath]}",
-                                        "{-o} [outputFilePath]", "{--output-file=[outputFilePath]}"));
+                    case "-help" -> {
+                        System.out.printf("""
+                                        Страница 1 из 1 для {-help}:
+                                        %-30s\t - Список аргументов.
+                                        %-30s\t - Указать путь к файлу с входными данными.
+                                        %-30s\t\s
+                                        %-30s\t - Указать путь к файлу для записи данных.
+                                        %-30s\t\s
+                                        """,
+                                "{-help}", "{-i} [inputFilePath]", "{--input-file=[inputFilePath]}",
+                                "{-o} [outputFilePath]", "{--output-file=[outputFilePath]}");
                         System.exit(0);
-
-                    case "-i":
+                    }
+                    case "-i" -> {
                         inputFilePath = args[i + 1];
                         i++;
-                        break;
-                    case "--input-file":
-                        inputFilePath = args[i].substring(args[i].indexOf('=') + 1);
-                        break;
-
-                    case "-o":
+                    }
+                    case "--input-file" -> inputFilePath = args[i].substring(args[i].indexOf('=') + 1);
+                    case "-o" -> {
                         outputFilePath = args[i + 1];
                         i++;
-                        break;
-                    case "--output-file":
-                        outputFilePath = args[i].substring(args[i].indexOf('=') + 1);
-                        break;
-
-                    default:
-                        throw new Exception("Некорректно заданы аргументы. " +
-                                "Воспользуйтесь аргументом {-help}.");
+                    }
+                    case "--output-file" -> outputFilePath = args[i].substring(args[i].indexOf('=') + 1);
+                    default -> throw new Exception("Некорректно заданы аргументы. " +
+                            "Воспользуйтесь аргументом {-help}.");
                 }
             }
         } catch (Exception ex) {
