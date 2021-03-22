@@ -20,6 +20,7 @@ public class Main {
         Solutions solution = new Solutions();
 
         System.out.println("Max area = " + solution.FindTheBiggestTrueRectangles(twoDimensionalArray));
+
     }
 
     public static InputArgs parseCmdArgs(String[] args) {
@@ -29,14 +30,15 @@ public class Main {
             for (int i = 0; i < args.length; i++) {
                 switch (args[i].split("=")[0]) {
                     case "-help" -> {
-                        System.out.printf("""
-                                        Страница 1 из 1 для {-help}:
-                                        %-30s\t - Список аргументов.
-                                        %-30s\t - Указать путь к файлу с входными данными.
-                                        %-30s\t\s
-                                        %-30s\t - Указать путь к файлу для записи данных.
-                                        %-30s\t\s
-                                        """,
+                        System.out.printf(
+                                """
+                                Страница 1 из 1 для {-help}:
+                                %-30s\t - Список аргументов.
+                                %-30s\t - Указать путь к файлу с входными данными.
+                                %-30s\t\s
+                                %-30s\t - Указать путь к файлу для записи данных.
+                                %-30s\t\s
+                                """,
                                 "{-help}", "{-i} [inputFilePath]", "{--input-file=[inputFilePath]}",
                                 "{-o} [outputFilePath]", "{--output-file=[outputFilePath]}");
                         System.exit(0);

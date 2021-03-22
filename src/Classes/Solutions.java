@@ -1,24 +1,26 @@
 package Classes;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Stack;
 
 public class Solutions {
     public Solutions() { }
-    private int[] coords = new int[4];
-    public int FindTheBiggestTrueRectangles(boolean[][] Array) {
 
-        ArrayList<int[]> listHistograms = new ArrayList<>();
-        // Convert boolean array into int[][]
+    public int FindTheBiggestTrueRectangles(boolean[][] Array) {
         int[][] intArray = new int[Array.length][Array[0].length];
+        int[][] histograms = new int[Array.length][Array[0].length];
+
+        int result = 0;
+
+        // Convert boolean array into int[][]
         for (int i = 0; i < Array.length; i++)
             for (int k = 0; k < Array[i].length; k++)
                 intArray[i][k] = Array[i][k] ? 1 : 0;
 
-        // Calculate area for first row and initialize it as
-        // result
-        int result = 0;
+        FindTrueRectangle(intArray);
 
         // iterate over row to find maximum rectangular area
         // considering each row as histogram
@@ -30,17 +32,142 @@ public class Solutions {
                 }
             }
 
-            listHistograms.add(intArray[i]);
+            histograms[i] = intArray[i];
 
             // Update result if area with current row (as
             // last row of rectangle) is more
             result = Math.max(result, GetHistogramArea(intArray[i], intArray[i].length));
         }
         System.out.println("Histogram: ");
-        for (int[] listHistogram : listHistograms) {
+        for (int[] listHistogram : histograms) {
             System.out.println(Arrays.toString(listHistogram));
         }
         return result;
+    }
+
+    private void FindTrueRectangle(int[][] arr) {
+
+        int width, height = width = 0,
+            area, maxArea = area = 0,
+            startI, startJ = startI = 0;
+
+        boolean isOnlyZeroAround = true;
+        boolean[] endOfArray;
+
+        for (int i = 0; i < arr.length; i++) {
+            startJ++;
+            if (startJ >= arr[i].length) {
+                startJ = 0;
+                startI++;
+            }
+            i = startI;
+            for (int j = 0; j < arr[i].length; j++) {
+                j = startJ;
+                // Update every loop
+                width = height = 0;
+                endOfArray = new boolean[]{i + 1 >= arr.length, j + 1 >= arr[i].length, i - 1 < 0, j - 1 < 0};
+                // Find 0 around
+                if (arr[i][j] == 0) {
+                    // Find "1"
+                    if (!endOfArray[1] && arr[i][j + 1] == 1 && (!endOfArray[2] && arr[i-1][j] == 0 || endOfArray[2])) {
+                        // Find height
+                        while (!endOfArray[0] && arr[i + 1][j] == 0 && arr[i][j+1] == 1) {
+                            i++;
+                            height++;
+                            endOfArray[0] = i + 1 >= arr.length;
+                        }
+                        if (endOfArray[0] && arr[i][j+1] == 1) {
+                            height++;
+                            while (!endOfArray[1] && arr[i][j+1] == 1) {
+                                width++;
+                                j++;
+                                endOfArray[1] = j+1 >= arr[i].length;
+                            }
+                        } else {
+                            // Find width
+                            while (!endOfArray[1] && !endOfArray[2] && arr[i][j + 1] == 0 && arr[i - 1][j + 1] == 1) {
+                                width++;
+                                j++;
+                                endOfArray[1] = j + 1 >= arr[i].length;
+                            }
+                            // Check right side
+                            if (!endOfArray[2] && !endOfArray[1] && arr[i - 1][j + 1] == 0 && arr[i][j + 1] == 0) {
+                                i = i - height;
+                                if (arr[i][j] == 1) {
+                                    for (int k = 0; k < height; k++) {
+                                        if (arr[i + k][j + 1] == 1)
+                                            isOnlyZeroAround = false;
+                                    }
+                                    if (!isOnlyZeroAround) {
+                                        i = startI;
+                                        j = startJ;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        i = startI;
+                        j = startJ;
+                        break;
+                    }
+                    area = width * height;
+                    maxArea = Math.max(area, maxArea);
+                    break;
+                } else {
+                    width = height = 1;
+                    if (!endOfArray[3] && !endOfArray[2] && !endOfArray[1]
+                        && (arr[i-1][j-1] == 1 || arr[i-1][j] == 1 || arr[i-1][j+1] == 1)) {
+                        i = startI;
+                        j = startJ;
+                        break;
+                    }
+                    while (!endOfArray[0] && arr[i + 1][j] == 1) {
+                        height++;
+                        i++;
+                        endOfArray[0] = i + 1 >= arr.length;
+                    }
+                    if (!endOfArray[0] && arr[i+1][j] == 0) {
+                        i++;
+                        while (!endOfArray[1] && !endOfArray[2] && arr[i][j + 1] == 0
+                                && arr[i - 1][j + 1] == 1) {
+                            width++;
+                            j++;
+                            endOfArray[1] = j + 1 >= arr[i].length;
+                        }
+                    } else {
+                        while (!endOfArray[1] && arr[i][j + 1] == 1) {
+                            width++;
+                            j++;
+                            endOfArray[1] = j + 1 >= arr[i].length;
+                        }
+                    }
+                    // Check right side
+                    if (!endOfArray[2] && !endOfArray[1] && arr[i - 1][j + 1] == 0 && arr[i][j + 1] == 0) {
+                        i = i - (height - 1);
+                        if (arr[i][j] == 1) {
+                            for (int k = 0; k < height; k++) {
+                                if (arr[i + k][j + 1] == 1)
+                                    isOnlyZeroAround = false;
+                            }
+                            if (!isOnlyZeroAround) {
+                                i = startI;
+                                j = startJ;
+                                break;
+                            }
+                        }
+                    } else {
+                        i = startI;
+                        j = startJ;
+                        break;
+                    }
+                    area = width * height;
+                    maxArea = Math.max(area, maxArea);
+                    break;
+                }
+            }
+        }
+        System.out.println("Площадь: " + maxArea);
     }
 
     private int GetHistogramArea(int[] row, int columnsCount) {
