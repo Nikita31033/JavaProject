@@ -13,13 +13,13 @@ public class Main {
                 = new FileWorker(filesPath.GetInputFilePath(), filesPath.GetOutputFilePath()).getTwoDimensionalArray();
 
         for (boolean[] row : twoDimensionalArray) {
-            for (boolean element : row) System.out.print(element + "\t");
+            for (boolean element : row) System.out.print(element ? 1 + "\t" : 0 + "\t");
             System.out.println();
         }
 
         Solutions solution = new Solutions();
 
-        System.out.println("Max area = " + solution.FindTheBiggestTrueRectangles(twoDimensionalArray));
+        solution.FindTheBiggestTrueRectangles(twoDimensionalArray);
 
     }
 
