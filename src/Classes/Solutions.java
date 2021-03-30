@@ -5,12 +5,12 @@ import java.util.ArrayList;
 public class Solutions {
     public Solutions() { }
 
-    public void FindTheBiggestTrueRectangles(boolean[][] Array) {
+    public String FindTheBiggestTrueRectangles(boolean[][] Array) {
         ArrayList<int[]> rectangles;
         int[][] intArray = new int[Array.length][Array[0].length];
         int area, maxArea = 0,
             width, height;
-
+        StringBuilder str = new StringBuilder();
         // Convert boolean array into int[][]
         for (int i = 0; i < Array.length; i++)
             for (int k = 0; k < Array[i].length; k++)
@@ -19,7 +19,7 @@ public class Solutions {
         // Get all rectangles coordinates
         rectangles = Search(intArray);
         if (rectangles.size() == 0)
-            System.out.println("(-1, -1, -1, -1)");
+            str = new StringBuilder("(-1, -1, -1, -1)");
         else {
             // Find maximum area
             for (int[] rectangle : rectangles) {
@@ -29,17 +29,76 @@ public class Solutions {
                 maxArea = Math.max(area, maxArea);
             }
             // Print (x1, y1, width, height) for max area rectangles
-            System.out.println("\nПрямоугольники, S = " + maxArea + ":");
+            str.append("\nПрямоугольники, S = ").append(maxArea).append(":\n");
             for (int[] rectangle : rectangles) {
                 width = (int)Math.sqrt(Math.pow(rectangle[3] - rectangle[1], 2)) + 1;
                 height = (int)Math.sqrt(Math.pow(rectangle[0] - rectangle[2], 2)) + 1;
                 if (width * height == maxArea)
-                    System.out.println("(" + rectangle[1] +
-                            ", " + rectangle[0] +
-                            ", " + width +
-                            ", " + height + ")");
+                    str.append("(").append(rectangle[1]).append(", ").append(rectangle[0]).append(", ").append(width).append(", ").append(height).append(")\n");
             }
         }
+        return str.toString();
+    }
+
+    public int WhoWon(int[][] arr) {
+        int result;
+        boolean isOneWin, isZeroWin = isOneWin = false;
+
+        for (int i = 0; i < arr.length; i++)
+            for (int j = 0; j < arr[i].length; j++) {
+                if (arr[i][j] == 1)
+                    isOneWin = isOneWin || IsWon(i, j, arr);
+                else if (arr[i][j] == 0)
+                    isZeroWin = isZeroWin || IsWon(i, j, arr);
+            }
+
+        result = isOneWin ? isZeroWin ? 0 : 1 : isZeroWin ? -1 : 0 ;
+        return result;
+    }
+
+    private boolean IsWon(int i, int j, int[][] arr) {
+        int result = 1;
+        int value = arr[i][j];
+
+        boolean[] canMove = new boolean[]{i + 1 >= arr.length, j + 1 >= arr[i].length, j - 1 < 0};
+
+        if (!canMove[1] && arr[i][j + 1] == value)
+            while (!canMove[1] && arr[i][j + 1] == value) {
+                j++;
+                canMove[1] = j + 1 >= arr[i].length;
+                if (++result == 5)
+                    return true;
+            }
+        else if (!canMove[0] && !canMove[1] && arr[i + 1][j + 1] == value) {
+            result = 1;
+            while (!canMove[0] && !canMove[1] && arr[i + 1][j + 1] == value) {
+                i++;
+                j++;
+                canMove[0] = i + 1 >= arr.length;
+                canMove[1] = j + 1 >= arr[i].length;
+                if (++result == 5)
+                    return true;
+            }
+        } else if (!canMove[0] && arr[i + 1][j] == value) {
+            result = 1;
+            while (!canMove[1] && arr[i + 1][j] == value) {
+                i++;
+                canMove[0] = i + 1 >= arr.length;
+                if (++result == 5)
+                    return true;
+            }
+        } else if (!canMove[0] && !canMove[2] && arr[i + 1][j - 1] == value) {
+            result = 1;
+            while (!canMove[1] && arr[i + 1][j - 1] == value) {
+                j--;
+                i++;
+                canMove[0] = i + 1 >= arr.length;
+                canMove[2] = j - 1 < 0;
+                if (++result == 5)
+                    return true;
+            }
+        }
+        return false;
     }
 
     private ArrayList<int[]> Search(int[][] arr) {
@@ -69,7 +128,7 @@ public class Solutions {
                          || (!canMove[3] && arr[i][j-1] == 1)
                          || (!canMove[2] && arr[i-1][j] == 1)
                          || (!canMove[0] && !canMove[3] && arr[i+1][j-1] == 1)
-                         || (!canMove[0] && !canMove[1] && arr[i+1][j+1] == 1)) {
+                         || (!canMove[0] && !canMove[1] && arr[i+1][j+1] == 1 && arr[i][j+1] != 1)) {
                         goodRectangle = false;
                         break;
                     }
@@ -101,7 +160,7 @@ public class Solutions {
                                     break;
                                 }
                         // Check left side of rectangle
-                        if (j - width >= 0 && arr[i][j-width] == 1 || (!canMove[0] && arr[i+1][j-width] == 1)) {
+                        if (j - width >= 0 && arr[i][j-width] == 1 || (!canMove[0] && j - width >= 0 && arr[i+1][j-width] == 1)) {
                             goodRectangle = false;
                             break;
                         }

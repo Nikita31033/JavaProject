@@ -2,6 +2,8 @@ import Classes.InputArgs;
 import Classes.FileWorker;
 import Classes.Solutions;
 
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -9,18 +11,56 @@ public class Main {
 
         filesPath = parseCmdArgs(args);
 
-        boolean[][] twoDimensionalArray
-                = new FileWorker(filesPath.GetInputFilePath(), filesPath.GetOutputFilePath()).getTwoDimensionalArray();
+        int menu;
+        StringBuilder answer = new StringBuilder();
+        FileWorker fileWorker = new FileWorker(filesPath.GetInputFilePath(), filesPath.GetOutputFilePath());
 
-        for (boolean[] row : twoDimensionalArray) {
-            for (boolean element : row) System.out.print(element ? 1 + "\t" : 0 + "\t");
-            System.out.println();
+        do {
+            try {
+                System.out.print("""
+                                    Выберите действие:
+                                    1) Поиск наибольшего прямоугольника
+                                    2) Анализ игры "5 в ряд"
+                                    >\s""");
+                menu = new Scanner(System.in).nextInt();
+            } catch (Exception e) {
+                System.out.flush();
+                System.out.println("Некорректный ввод, повторите попытку: " + e.getMessage());
+                menu = -1;
+            }
+        } while (menu > 2 || menu < 0);
+
+        switch (menu){
+            case 1:
+                boolean[][] twoDimensionalArray
+                        = fileWorker.getTwoDimensionalArray();
+                for (boolean[] row : twoDimensionalArray) {
+                    for (boolean element : row)
+                        answer.append(element ? 1 + "\s" : 0 + "\s");
+                    answer.append("\n");
+                }
+                Solutions rectangles = new Solutions();
+                answer.append(rectangles.FindTheBiggestTrueRectangles(twoDimensionalArray));
+                System.out.println(answer);
+                fileWorker.WriteInFile(answer.toString());
+                break;
+            case 2:
+                int[][] gameField = fileWorker.getGameField();
+                for (int[] row : gameField) {
+                    for (int element : row)
+                        answer.append(element).append("\s");
+                    answer.append("\n");
+                }
+                Solutions game = new Solutions();
+                answer.append("Результат: ").append(game.WhoWon(gameField));
+                System.out.println(answer);
+                fileWorker.WriteInFile(answer.toString());
+                break;
+            case 0:
+                return;
+            default:
+                throw new IllegalStateException("Неожиданное значение: " + menu);
         }
-
-        Solutions solution = new Solutions();
-
-        solution.FindTheBiggestTrueRectangles(twoDimensionalArray);
-
     }
 
     public static InputArgs parseCmdArgs(String[] args) {
