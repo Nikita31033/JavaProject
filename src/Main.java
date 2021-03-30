@@ -30,7 +30,7 @@ public class Main {
             }
         } while (menu > 2 || menu < 0);
 
-        switch (menu){
+        switch (menu) {
             case 1:
                 boolean[][] twoDimensionalArray
                         = fileWorker.getTwoDimensionalArray();
