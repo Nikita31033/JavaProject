@@ -1,100 +1,166 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Form">
-  <grid id="27dc6" binding="mainContainer" layout-manager="BorderLayout" hgap="0" vgap="0">
+  <grid id="27dc6" binding="mainContainer" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="10" vgap="0">
+    <margin top="10" left="10" bottom="10" right="10"/>
     <constraints>
-      <xy x="20" y="20" width="600" height="400"/>
+      <xy x="20" y="20" width="800" height="500"/>
     </constraints>
     <properties>
-      <minimumSize width="600" height="400"/>
-      <preferredSize width="600" height="400"/>
+      <minimumSize width="800" height="500"/>
+      <preferredSize width="800" height="500"/>
     </properties>
     <border type="none"/>
     <children>
-      <grid id="c7830" layout-manager="GridLayoutManager" row-count="8" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="c9f40" layout-manager="GridLayoutManager" row-count="11" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="0" vgap="0">
         <margin top="0" left="0" bottom="0" right="0"/>
-        <constraints border-constraint="West"/>
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <preferred-size width="380" height="30"/>
+          </grid>
+        </constraints>
         <properties>
-          <minimumSize width="200" height="0"/>
+          <minimumSize width="200" height="100"/>
           <preferredSize width="200" height="30"/>
         </properties>
         <border type="none"/>
         <children>
-          <component id="d9f2e" class="javax.swing.JLabel">
+          <component id="4d011" class="javax.swing.JLabel">
             <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
+              <font name="Arial" size="12"/>
               <horizontalAlignment value="0"/>
               <horizontalTextPosition value="0"/>
               <text value="Путь к входному файлу"/>
             </properties>
           </component>
-          <component id="daadd" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+          <component id="e4986" class="javax.swing.JTextField" binding="inputFileField">
             <constraints>
-              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+              <grid row="4" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <font name="Arial" size="12"/>
+            </properties>
           </component>
-          <component id="400e7" class="javax.swing.JLabel">
+          <component id="17447" class="javax.swing.JLabel">
             <constraints>
-              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="5" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
+              <font name="Arial" size="12"/>
               <text value="Путь к файлу экспорта"/>
             </properties>
           </component>
-          <component id="de0ff" class="javax.swing.JButton" binding="загрузитьДанныеВТаблицуButton" default-binding="true">
+          <component id="5b5" class="javax.swing.JTextField" binding="outputFIleField">
             <constraints>
-              <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Загрузить данные в таблицу"/>
-            </properties>
-          </component>
-          <component id="5b532" class="javax.swing.JTextField" binding="textField2" default-binding="true">
-            <constraints>
-              <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+              <grid row="6" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <font name="Arial" size="12"/>
+            </properties>
           </component>
-          <component id="73334" class="javax.swing.JButton" binding="экспортДанныхИзТаблицыButton" default-binding="true">
+          <component id="d4b09" class="javax.swing.JButton" binding="exportButton">
             <constraints>
-              <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="8" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
+              <font name="Arial" size="12"/>
               <text value="Экспорт данных из таблицы"/>
             </properties>
           </component>
-          <vspacer id="2b52">
+          <component id="5f482" class="javax.swing.JButton" binding="addColButton" default-binding="true">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Add Col"/>
+            </properties>
+          </component>
+          <component id="bf7b1" class="javax.swing.JButton" binding="addRowButton">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Add Row"/>
+            </properties>
+          </component>
+          <component id="9020f" class="javax.swing.JButton" binding="delRowButton" default-binding="true">
+            <constraints>
+              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Del Row"/>
+            </properties>
+          </component>
+          <component id="6f007" class="javax.swing.JButton" binding="delColButton" default-binding="true">
+            <constraints>
+              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Del col"/>
+            </properties>
+          </component>
+          <vspacer id="f4da4">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
             </constraints>
           </vspacer>
-          <vspacer id="bb43a">
+          <component id="ebe20" class="javax.swing.JButton" binding="rectangleButton" default-binding="true">
             <constraints>
-              <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+              <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Rectangle"/>
+            </properties>
+          </component>
+          <component id="a583b" class="javax.swing.JButton" binding="whoWonButton" default-binding="true">
+            <constraints>
+              <grid row="9" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Who Won?"/>
+            </properties>
+          </component>
+          <vspacer id="e6910">
+            <constraints>
+              <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
             </constraints>
           </vspacer>
+          <component id="108dc" class="javax.swing.JButton" binding="importBooleanButton">
+            <constraints>
+              <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="Arial" size="12"/>
+              <label value="Импорт логического массива"/>
+              <margin top="0" left="0" bottom="0" right="0"/>
+              <text value="Импорт логического массива"/>
+            </properties>
+          </component>
+          <component id="bca2b" class="javax.swing.JButton" binding="importGameFieldButton">
+            <constraints>
+              <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Импорт игрового поля"/>
+            </properties>
+          </component>
         </children>
       </grid>
-      <grid id="fd9a5" layout-manager="BorderLayout" hgap="0" vgap="0">
-        <constraints border-constraint="East"/>
+      <grid id="ea477" binding="tableContainer" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="3">
+        <constraints>
+          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
         <properties>
           <minimumSize width="400" height="0"/>
         </properties>
         <border type="none"/>
-        <children>
-          <component id="a78c" class="javax.swing.JTable" binding="table1" default-binding="true">
-            <constraints border-constraint="Center"/>
-            <properties>
-              <preferredSize width="400" height="40"/>
-            </properties>
-          </component>
-        </children>
+        <children/>
       </grid>
     </children>
   </grid>

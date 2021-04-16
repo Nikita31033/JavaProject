@@ -4,3 +4,5 @@
 /.idea/**
 *.class
 /out/
+/TestFiles/output.txt
+/TestFiles/Test1.txt
